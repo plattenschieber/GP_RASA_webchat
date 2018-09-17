@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Zurich Chatbot - Web Chat</title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+<script src="../index.js" type="text/javascript"></script>
+<div id="webchat"></div>
+<script>
+  WebChat.default.init({
+    selector: "#webchat",
+    initPayload: "/get_started",
+    socketUrl: "http://localhost:5005",
+    title:"Zoe",
+    subtitle: "Herzlich Willkommen ich bin Zoe!",
+    profileAvatar: "./assets/chatbot_zoe.png",
+    showCloseButton: true,
+    fullScreenMode: false
+  });
+</script>
+
+</body>
+
+</html>

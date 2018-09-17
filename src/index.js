@@ -43,7 +43,7 @@ ConnectedWidget.propTypes = {
 
 ConnectedWidget.defaultProps = {
   title: 'Welcome',
-  customData : {},
+  customData: {},
   interval: 2000,
   inputTextFieldHint: 'Type a message...',
   showCloseButton: true,
