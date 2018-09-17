@@ -7,7 +7,7 @@ services:
     ports:
       - "80:80"
     networks:
-    - chatbot
+      - chatbot
 networks:
   chatbot:
     external: true
