@@ -4,11 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: path.resolve(__dirname, 'index.js'),
   output: {
-    path: path.resolve(__dirname, 'static-dev'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
     library: 'WebChat',
     libraryTarget: 'umd',
-    publicPath: '/assets'
   },
   devServer: {
     stats: 'errors-only',
