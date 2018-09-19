@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Conversation from './components/Conversation';
+import Scores from './components/Training/'
 import Launcher from './components/Launcher';
 import './style.scss';
+import Score from "./components/Training/components/Scores/components/Score";
+import Training from "./components/Training";
 
 const WidgetLayout = props =>
   <div className={props.fullScreenMode ? 'widget-container full-screen' : 'widget-container'}>
@@ -20,6 +23,10 @@ const WidgetLayout = props =>
         showCloseButton={props.showCloseButton}
         disabledInput={props.disabledInput}
       />
+    }
+    {
+      props.showChat &&
+      <Training />
     }
     {
       !props.fullScreenMode &&
