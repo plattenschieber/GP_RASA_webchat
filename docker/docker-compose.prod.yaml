@@ -3,11 +3,5 @@ version: '3'
 services:
   webchat:
     image: docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat:${bamboo_tag}
-    restart: always
     ports:
       - "80:80"
-    networks:
-      - chatbot
-networks:
-  chatbot:
-    external: true

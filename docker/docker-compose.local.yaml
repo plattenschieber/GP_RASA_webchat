@@ -6,8 +6,3 @@ services:
     restart: always
     ports:
       - "80:80"
-    networks:
-      - chatbot
-networks:
-  chatbot:
-    external: true

@@ -2,9 +2,6 @@ version: '3'
 
 services:
   webchat:
-    restart: always
-    ports:
-      - "80:80"
     networks:
       - chatbot
 networks:
