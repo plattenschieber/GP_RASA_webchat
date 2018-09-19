@@ -2,6 +2,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
+import scores from './reducers/scoresReducer';
+
 
 let store = 'call initStore first';
 
@@ -13,7 +15,7 @@ function initStore(hint, socket) {
     // console.log('Middleware triggered:', action);
     next(action);
   };
-  const reducer = combineReducers({ behavior: behavior(hint), messages });
+  const reducer = combineReducers({ behavior: behavior(hint), messages, scores });
 
   /* eslint-disable no-underscore-dangle */
   store = createStore(
