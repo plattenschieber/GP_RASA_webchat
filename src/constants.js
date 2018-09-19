@@ -103,6 +103,12 @@ export const PROP_TYPES = {
     toggleInputDisabled: PropTypes.func,
     inputState: PropTypes.bool,
     chosenReply: PropTypes.string
+  }),
+
+  SCORES: ImmutablePropTypes.contains({
+    action: PropTypes.string,
+    score: PropTypes.number
   })
 
 };
+
