@@ -2,7 +2,7 @@ version: '3'
 
 services:
   webchat:
-    image: docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat:${bamboo.inject.commit-hash}
+    image: docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat:$${bamboo.inject.commit-hash}
     restart: always
     ports:
       - "80:80"
