@@ -90,10 +90,10 @@ export const PROP_TYPES = {
     text: PropTypes.string,
     hint: PropTypes.string,
     quick_replies: ImmutablePropTypes.listOf(
-        PropTypes.shape({
-          title: PropTypes.string,
-          payload: PropTypes.string
-        })),
+      PropTypes.shape({
+        title: PropTypes.string,
+        payload: PropTypes.string
+      })),
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
@@ -105,7 +105,7 @@ export const PROP_TYPES = {
     chosenReply: PropTypes.string
   }),
 
-  SCORES: ImmutablePropTypes.contains({
+  SCORE: ImmutablePropTypes.contains({
     action: PropTypes.string,
     score: PropTypes.number
   })

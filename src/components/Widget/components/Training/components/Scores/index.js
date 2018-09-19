@@ -4,15 +4,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
 import './style.scss';
+import Score from './components/Score';
 
 class Scores extends Component {
-  getComponentToRender = (score, index) => {
-    const ComponentToRender = score.get('component');
-    if (score.get('type') === 'component') {
-      return <ComponentToRender id={index} {...score.get('props')} />;
-    }
-    return <ComponentToRender id={index} score={score} />;
-  };
+
 
   render() {
     return (
@@ -21,7 +16,7 @@ class Scores extends Component {
           this.props.scores.map((score, index) =>
             <div className="score" key={index}>
               {
-                this.getComponentToRender(score, index)
+                <Score score={score} />
               }
             </div>
           )
