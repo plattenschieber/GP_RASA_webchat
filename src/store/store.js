@@ -1,14 +1,14 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-import behavior from "./reducers/behaviorReducer";
-import messages from "./reducers/messagesReducer";
+import behavior from './reducers/behaviorReducer';
+import messages from './reducers/messagesReducer';
 
-let store = "call initStore first";
+let store = 'call initStore first';
 
 function initStore(hint, socket) {
-  const customMiddleWare = (store) => next => (action) => {
-    if (action.type === "EMIT_NEW_USER_MESSAGE") {
-      socket.emit("user_uttered", { message: action.text, customData: socket.customData });
+  const customMiddleWare = store => next => (action) => {
+    if (action.type === 'EMIT_NEW_USER_MESSAGE') {
+      socket.emit('user_uttered', { message: action.text, customData: socket.customData });
     }
     // console.log('Middleware triggered:', action);
     next(action);

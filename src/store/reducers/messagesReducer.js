@@ -7,10 +7,10 @@ import {
     createLinkSnippet,
     createVideoSnippet,
     createImageSnippet,
-    createComponentMessage,
+    createComponentMessage
 } from './helper';
 
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../message-actions/actionTypes';
 
 const initialState = List([]);
 
