@@ -3,6 +3,7 @@ import { ADD_SCORE } from '../score-actions';
 
 const initialState = List([Map({ action: 'blah', score: 1 })]);
 
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_SCORE:
