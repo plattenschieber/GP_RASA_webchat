@@ -12,7 +12,7 @@ import {
   addImageSnippet,
   addQuickReply,
   initialize
-} from 'message-actions';
+} from 'actions';
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
 

@@ -10,7 +10,7 @@ import {
     createComponentMessage
 } from './helper';
 
-import * as actionTypes from '../message-actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = List([]);
 
