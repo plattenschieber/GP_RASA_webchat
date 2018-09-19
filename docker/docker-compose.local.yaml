@@ -2,6 +2,7 @@ version: '3'
 
 services:
   webchat:
+    image: docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat:latest
     restart: always
     ports:
       - "80:80"
