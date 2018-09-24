@@ -11,7 +11,7 @@ class Event extends PureComponent {
   }
 
   handleClick() {
-    console.log('Event was clicked: ' + this.props.event.get('name'));
+    console.log(`Event was clicked: ${this.props.event.get('name')}`);
   }
 
   render() {

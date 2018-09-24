@@ -11,7 +11,7 @@ class Intent extends PureComponent {
   }
 
   handleClick() {
-    console.log('Intent was clicked: ' + this.props.intent.get('name'));
+    console.log(`Intent was clicked: ${this.props.intent.get('name')}`);
   }
 
   render() {

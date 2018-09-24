@@ -11,7 +11,7 @@ class Score extends PureComponent {
   }
 
   handleClick() {
-    console.log('Score was clicked: ' + this.props.score.get('action'));
+    console.log(`Score was clicked: ${this.props.score.get('action')}`);
   }
 
   render() {
