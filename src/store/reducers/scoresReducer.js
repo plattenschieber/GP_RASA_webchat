@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 import { ADD_SCORE } from '../score-actions';
 
-const initialState = List([Map({ action: 'blah', score: 1 }), Map({ action: 'blah1', score: 0.1 })]);
+const initialState = List([Map({ action: 'MyAction', score: 1 }), Map({ action: 'MyAction2', score: 0.1 })]);
 
 
 export default function reducer(state = initialState, action) {

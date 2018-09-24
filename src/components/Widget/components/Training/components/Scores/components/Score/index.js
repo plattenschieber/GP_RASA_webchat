@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import { PROP_TYPES } from 'constants';
 
 import './style.scss';

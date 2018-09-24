@@ -1,13 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import Scores from './components/Scores';
+import Intents from './components/Intents';
+import Events from './components/Events';
 
 import './style.scss';
 
 const Training = props =>
   <div className="training-container">
     <Scores />
+    <Intents />
+    <Events />
   </div>;
 
 Training.propTypes = {

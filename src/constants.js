@@ -108,7 +108,29 @@ export const PROP_TYPES = {
   SCORE: ImmutablePropTypes.contains({
     action: PropTypes.string,
     score: PropTypes.number
+  }),
+
+  INTENT: ImmutablePropTypes.contains({
+    confidence: PropTypes.number,
+    name: PropTypes.string
+  }),
+
+  EVENT: ImmutablePropTypes.contains({
+    eventtype: PropTypes.string,
+    name: PropTypes.string,
+    timestamp: PropTypes.number,
+    // parse_data still missing (should be a TRAINING MESSAGE)
+    text: PropTypes.string
   })
+  //
+  // TRAINING_MESSAGE: ImmutablePropTypes.contains({
+  //   entities: PropTypes.Array,
+  //   intent: PropTypes.instanceOf(Intent),
+  //   intent_ranking: PropTypes.arrayOf(Intent),
+  //   model: PropTypes.string,
+  //   project: PropTypes.string,
+  //   text: PropTypes.string
+  // })
 
 };
 
