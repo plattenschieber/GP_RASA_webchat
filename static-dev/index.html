@@ -9,11 +9,13 @@
 <div id="webchat"></div>
 <script>
   WebChat.default.init({
-    selector: "#webchat",
-    initPayload: "/greet",
-    socketUrl: "http://localhost:5005",
-    title: "Zoe",
-    subtitle: "Herzlich Willkommen ich bin Zoe!",
+    selector: '#webchat',
+    initPayload: '/greet',
+    socketUrl: '',//http://localhost:5005
+    title: 'Zoe',
+    subtitle: 'Herzlich Willkommen ich bin Zoe!',
+    enableTraining: true,
+    trainingUrl: 'http://localhost:5005',
     showCloseButton: true,
     fullScreenMode: false
   });
