@@ -116,10 +116,16 @@ export const PROP_TYPES = {
   }),
 
   EVENT: ImmutablePropTypes.contains({
-    eventtype: PropTypes.string,
+    eventType: PropTypes.string,
     name: PropTypes.string,
     timestamp: PropTypes.number,
-    // parse_data still missing (should be a TRAINING MESSAGE)
+    parse_data: PropTypes.shape({
+      entities: PropTypes.array,
+      intent: PropTypes.shape({
+        confidence: PropTypes.number,
+        name: PropTypes.string
+      })
+    }),
     text: PropTypes.string
   })
   //
