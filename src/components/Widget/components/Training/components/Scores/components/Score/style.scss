@@ -1,0 +1,13 @@
+@import "variables.scss";
+@import "common.scss";
+
+.score {
+  @include score-bubble($green-1, $white);
+  margin-left: auto;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-family: $roboto;
+}
+

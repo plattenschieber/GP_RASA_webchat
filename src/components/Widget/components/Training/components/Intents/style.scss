@@ -1,0 +1,10 @@
+@import "variables.scss";
+@import "common.scss";
+
+.intents-container {
+  background-color: $white;
+  height: 50vh;
+  max-height: 425px;
+  overflow-y: scroll;
+  padding-top: 100px;
+}
