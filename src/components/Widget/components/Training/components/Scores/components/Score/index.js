@@ -4,9 +4,19 @@ import { PROP_TYPES } from 'constants';
 import './style.scss';
 
 class Score extends PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    console.log(`Score was clicked: ${this.props.score.get('action')}`);
+  }
+
   render() {
     return (
-      <div className="score">
+      <div className="score" onClick={this.handleClick}>
         <div className="action" >
           <p style={{ margin: '0' }}>{this.props.score.get('action')}</p>
         </div>

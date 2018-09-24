@@ -4,9 +4,19 @@ import { PROP_TYPES } from 'constants';
 import './style.scss';
 
 class Event extends PureComponent {
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    console.log(`Event was clicked: ${this.props.event.get('name')}`);
+  }
+
   render() {
     return (
-      <div className="event">
+      <div className="event" onClick={this.handleClick}>
         <div className="event-type">
           <p style={{ margin: '0'}}>{this.props.event.get('eventtype')}</p>
         </div>

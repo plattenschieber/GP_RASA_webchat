@@ -13,7 +13,7 @@ class Events extends Component {
       <div id="events" className="events-container">
         {
           this.props.events.map((event, index) =>
-            <Event event={event} key={index} />
+            <Event event={event} key={index} onClick={this.handleClick} />
           )
         }
       </div>
