@@ -30,11 +30,12 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { socket } = this.props;
-
-    socket.on('bot_uttered', (botUttered) => {
-      this.messages.push(botUttered);
-    });
+    if (!this.props.enableTraining) {
+      const { socket } = this.props;
+      socket.on('bot_uttered', (botUttered) => {
+        this.messages.push(botUttered);
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +43,7 @@ class Widget extends Component {
       this.props.dispatch(toggleChat());
     }
   }
+
   /* handles new messages from user */
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
@@ -81,7 +83,9 @@ class Widget extends Component {
     const { initPayload, initialized, customData, socket } = this.props;
     if (!initialized) {
       this.props.dispatch(initialize());
-      socket.emit('user_uttered', { message: initPayload, customData });
+      if (!this.props.enableTraining) {
+        socket.emit('user_uttered', { message: initPayload, customData });
+      }
     }
   };
 
@@ -106,6 +110,7 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
+        enableTraining={this.props.enableTraining}
         badge={this.props.badge}
       />
     );
@@ -124,11 +129,12 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   initialized: PropTypes.bool,
   inputTextFieldHint: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
+  handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
+  enableTraining: PropTypes.bool,
   socket: PropTypes.shape({})
 };
 
