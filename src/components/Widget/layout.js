@@ -3,40 +3,31 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Conversation from './components/Conversation';
-import Scores from './components/Training/';
 import Launcher from './components/Launcher';
 import './style.scss';
-import Score from './components/Training/components/Scores/components/Score';
-import Training from './components/Training';
 
 const WidgetLayout = props =>
-  <div className={'widgets-container'}>
+  <div className={props.fullScreenMode ? 'widget-container full-screen' : 'widget-container'}>
     {
       props.showChat &&
-      <Training />
+      <Conversation
+        title={props.title}
+        subtitle={props.subtitle}
+        sendMessage={props.onSendMessage}
+        profileAvatar={props.profileAvatar}
+        toggleChat={props.onToggleConversation}
+        showChat={props.showChat}
+        showCloseButton={props.showCloseButton}
+        disabledInput={props.disabledInput}
+      />
     }
-    <div className={props.fullScreenMode ? 'widget-container full-screen' : 'widget-container'}>
-      {
-        props.showChat &&
-        <Conversation
-          title={props.title}
-          subtitle={props.subtitle}
-          sendMessage={props.onSendMessage}
-          profileAvatar={props.profileAvatar}
-          toggleChat={props.onToggleConversation}
-          showChat={props.showChat}
-          showCloseButton={props.showCloseButton}
-          disabledInput={props.disabledInput}
-        />
-      }
-      {
-        !props.fullScreenMode &&
-        <Launcher
-          toggle={props.onToggleConversation}
-          badge={props.badge}
-        />
-      }
-    </div>
+    {
+      !props.fullScreenMode &&
+      <Launcher
+        toggle={props.onToggleConversation}
+        badge={props.badge}
+      />
+    }
   </div>;
 
 WidgetLayout.propTypes = {

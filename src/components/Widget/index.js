@@ -15,6 +15,7 @@ import {
 } from 'actions';
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
+import WidgetLayoutTrain from './layout-training';
 
 
 class Widget extends Component {
@@ -100,8 +101,9 @@ class Widget extends Component {
   };
 
   render() {
-    return (
-      <WidgetLayout
+
+    return this.props.enableTraining ?
+      (<WidgetLayoutTrain
         onToggleConversation={this.toggleConversation}
         onSendMessage={this.handleMessageSubmit}
         title={this.props.title}
@@ -112,8 +114,21 @@ class Widget extends Component {
         fullScreenMode={this.props.fullScreenMode}
         enableTraining={this.props.enableTraining}
         badge={this.props.badge}
-      />
-    );
+      />) :
+      (
+        <WidgetLayout
+          onToggleConversation={this.toggleConversation}
+          onSendMessage={this.handleMessageSubmit}
+          title={this.props.title}
+          subtitle={this.props.subtitle}
+          customData={this.props.customData}
+          profileAvatar={this.props.profileAvatar}
+          showCloseButton={this.props.showCloseButton}
+          fullScreenMode={this.props.fullScreenMode}
+          enableTraining={this.props.enableTraining}
+          badge={this.props.badge}
+        />
+      );
   }
 }
 
