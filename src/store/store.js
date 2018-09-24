@@ -6,6 +6,7 @@ import scores from './reducers/scoresReducer';
 import { addScore, clearScores, predictScore } from './score-actions';
 import intents from './reducers/intentReducer';
 import events from './reducers/eventReducer';
+import { addIntent } from './intent-actions';
 
 
 let store = 'call initStore first';
@@ -25,8 +26,13 @@ function initStore(hint, socket, serverUrl) {
         sender: 'user',
         text: action.text,
         parse_data: action.intent ? action.intent : null
-      }, { headers: { 'Content-Type': 'application/json' } }).then(() => {
+      }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
         console.log(`Respone from ${serverUrl}/conversations/default/messages was successful`);
+        console.log(`Recieved ${res.data.latest_message.intent_ranking.length} Intents...`);
+        res.data.latest_message.intent_ranking.forEach((intent) => {
+          store.dispatch(addIntent(intent.name, intent.confidence));
+        });
+
         console.log('Will dispatch scores...');
         store.dispatch(predictScore());
       }).catch((err) => {
