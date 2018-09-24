@@ -13,7 +13,7 @@ class Scores extends Component {
       <div id="scores" className="scores-container">
         {
           this.props.scores.map((score, index) =>
-            <Score score={score} key={index} />
+            <Score score={score} key={index} onClick={console.log('Click on Score')} />
           )
         }
       </div>
