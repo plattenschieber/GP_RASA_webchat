@@ -16,14 +16,14 @@ class Score extends PureComponent {
 
   render() {
     return (
-      <button className="score" onClick={this.handleClick}>
+      <div className="score" onClick={this.handleClick}>
         <div className="action" >
           <p style={{ margin: '0' }}>{this.props.score.get('action')}</p>
         </div>
         <div className="score-value" >
           <p style={{ margin: '0' }}>{this.props.score.get('score')}</p>
         </div>
-      </button>
+      </div>
     );
   }
 }
