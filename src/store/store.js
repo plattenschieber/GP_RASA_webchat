@@ -6,7 +6,8 @@ import scores from './reducers/scoresReducer';
 import { addScore, clearScores, predictScore } from './score-actions';
 import intents from './reducers/intentReducer';
 import events from './reducers/eventReducer';
-import { addIntent } from './intent-actions';
+import { addIntent, clearIntents } from './intent-actions';
+import { addEvent } from './event-actions';
 
 
 let store = 'call initStore first';
@@ -22,6 +23,9 @@ function initStore(hint, socket, serverUrl) {
 
   const restMiddleWare = store => next => (action) => {
     if (action.type === 'EMIT_NEW_USER_MESSAGE') {
+      console.log('clear all previous Intents from store');
+      store.dispatch(clearIntents());
+
       axios.post((`${serverUrl}/conversations/default/messages`), {
         sender: 'user',
         text: action.text,
@@ -35,6 +39,15 @@ function initStore(hint, socket, serverUrl) {
 
         console.log('Will dispatch scores...');
         store.dispatch(predictScore());
+
+        console.log('Will dispatch Events...');
+        console.log('Clear all previous events from store');
+        store.dispatch(clearScores());
+        res.data.events.forEach((event) => {
+          store.dispatch(
+            addEvent(event.event, event.name, event.timestamp, event.parse_data, event.text));
+        });
+
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
       });
