@@ -1,6 +1,7 @@
 import { Map, List } from 'immutable';
 import { ADD_SCORE, CLEAR_SCORES, PREDICT_SCORES } from '../score-actions';
 
+
 const initialState = List([]);
 
 

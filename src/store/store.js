@@ -4,6 +4,8 @@ import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 import scores from './reducers/scoresReducer';
 import { addScore, clearScores, predictScore } from './score-actions';
+import intents from './reducers/intentReducer';
+import events from './reducers/eventReducer';
 
 
 let store = 'call initStore first';
@@ -68,7 +70,7 @@ function initStore(hint, socket, serverUrl) {
     next(action);
   };
 
-  const reducer = combineReducers({ behavior: behavior(hint), messages, scores });
+  const reducer = combineReducers({ behavior: behavior(hint), messages, scores, intents, events });
 
   /* eslint-disable no-underscore-dangle */
   store = createStore(
