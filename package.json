@@ -27,7 +27,8 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "socket.io": "^2.1.1",
-    "uniqueid": "^1.0.0"
+    "uniqueid": "^1.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

@@ -9,10 +9,12 @@ import events from './reducers/eventReducer';
 import { addIntent, clearIntents } from './intent-actions';
 import { addEvent } from './event-actions';
 
+const uuid = require('uuid/v1');
 
 let store = 'call initStore first';
 
 function initStore(hint, socket, serverUrl) {
+  const conversationID = uuid();
   const socketMiddleWare = store => next => (action) => {
     if (action.type === 'EMIT_NEW_USER_MESSAGE') {
       socket.emit('user_uttered', { message: action.text, customData: socket.customData });
@@ -26,12 +28,12 @@ function initStore(hint, socket, serverUrl) {
       console.log('clear all previous Intents from store');
       store.dispatch(clearIntents());
 
-      axios.post((`${serverUrl}/conversations/default/messages`), {
+      axios.post((`${serverUrl}/conversations/${conversationID}/messages`), {
         sender: 'user',
         text: action.text,
         parse_data: action.intent ? action.intent : null
       }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/default/messages was successful`);
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/messages was successful`);
         console.log(`Recieved ${res.data.latest_message.intent_ranking.length} Intents...`);
         res.data.latest_message.intent_ranking.forEach((intent) => {
           store.dispatch(addIntent(intent.name, intent.confidence));
@@ -56,9 +58,9 @@ function initStore(hint, socket, serverUrl) {
     if (action.type === 'EMIT_PREDICT') {
       console.log('clear all previous scores from store');
       store.dispatch(clearScores());
-      console.log(`Request to: ${serverUrl}/conversations/default/predict`);
+      console.log(`Request to: ${serverUrl}/conversations/${conversationID}/predict`);
       axios.post((`${serverUrl}/conversations/default/predict`)).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/default/predict was successful`);
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/predict was successful`);
         console.log(`Recieved ${res.data.scores.length} Actions...`);
         res.data.scores.forEach((score) => {
           store.dispatch(addScore(score.action, score.score));
@@ -69,18 +71,18 @@ function initStore(hint, socket, serverUrl) {
     }
 
     if (action.type === 'EMIT_EXECUTE_ACTIONS') {
-      axios.post((`${serverUrl}/conversations/default/execute`), {
+      axios.post((`${serverUrl}/conversations/${conversationID}/execute`), {
         action: action.action
       }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/default/execute was successful : ${JSON.stringify(res)}`);
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/execute was successful : ${JSON.stringify(res)}`);
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
       });
     }
 
     if (action.type === 'EMIT_RESET_TRACKER') {
-      axios.put((`${serverUrl}/conversations/default/tracker/events`), action.eventTracker, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/default/tracker/events was successful : ${JSON.stringify(res)}`);
+      axios.put((`${serverUrl}/conversations/${conversationID}/tracker/events`), action.eventTracker, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/tracker/events was successful : ${JSON.stringify(res)}`);
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
       });
