@@ -64,7 +64,7 @@ function initStore(hint, socket, serverUrl) {
       console.log('clear all previous scores from store');
       store.dispatch(clearScores());
       console.log(`Request to: ${serverUrl}/conversations/${conversationID}/predict`);
-      axios.post((`${serverUrl}/conversations/default/predict`)).then((res) => {
+      axios.post((`${serverUrl}/conversations/${conversationID}/predict`)).then((res) => {git
         console.log(`Respone from ${serverUrl}/conversations/${conversationID}/predict was successful`);
         console.log(`Recieved ${res.data.scores.length} Actions...`);
         res.data.scores.forEach((score) => {
