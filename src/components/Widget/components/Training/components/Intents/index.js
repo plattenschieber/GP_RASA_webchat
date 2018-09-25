@@ -13,7 +13,7 @@ class Intents extends Component {
       <div id="intents" className="intents-container">
         {
           this.props.intents.map((intent, index) =>
-            <Intent intent={intent} key={index} />
+            <Intent intent={intent} key={index} isHighestConfidence={index === 0} />
           )
         }
       </div>
