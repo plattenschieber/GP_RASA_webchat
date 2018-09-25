@@ -1,0 +1,21 @@
+import { Map, List } from 'immutable';
+import { SHOW_ACTIONS, SHOW_EVENTS, SHOW_INTENTS } from '../training-actions';
+
+
+const initialState = List([Map({ component: SHOW_INTENTS })]);
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case SHOW_EVENTS:
+      state = state.clear();
+      return state.push(Map({ component: SHOW_EVENTS }));
+    case SHOW_INTENTS:
+      state = state.clear();
+      return state.push(Map({ component: SHOW_INTENTS }));
+    case SHOW_ACTIONS:
+      state = state.clear();
+      return state.push(Map({ component: SHOW_ACTIONS }));
+    default:
+      return state;
+  }
+}

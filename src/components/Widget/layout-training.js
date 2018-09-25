@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Conversation from './components/Conversation';
-import Launcher from './components/Launcher';
 import './style.scss';
 import Training from './components/Training';
 
 const WidgetLayoutTrain = props =>
   <div className={'widgets-container'}>
+
     <div className={'training-widget-container'}>
       {
         <Training/>

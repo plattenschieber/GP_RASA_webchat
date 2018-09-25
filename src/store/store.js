@@ -3,6 +3,8 @@ import axios from 'axios';
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 import scores from './reducers/scoresReducer';
+import trainings from './reducers/trainingReducer';
+
 import { addScore, clearScores, predictScore } from './score-actions';
 import intents from './reducers/intentReducer';
 import events from './reducers/eventReducer';
@@ -91,7 +93,7 @@ function initStore(hint, socket, serverUrl) {
     next(action);
   };
 
-  const reducer = combineReducers({ behavior: behavior(hint), messages, scores, intents, events });
+  const reducer = combineReducers({ behavior: behavior(hint), messages, scores, intents, events, trainings });
 
   /* eslint-disable no-underscore-dangle */
   store = createStore(

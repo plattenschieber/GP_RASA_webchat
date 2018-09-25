@@ -7,29 +7,40 @@ import Events from './components/Events';
 
 import './style.scss';
 import Header from '../Conversation/components/Header';
-import ConnectedWidget from '../../../../index';
+import connect from 'react-redux/es/connect/connect';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { SHOW_ACTIONS, SHOW_EVENTS, SHOW_INTENTS } from '../../../../store/training-actions';
 
 const Training = props =>
   <div className="training-container">
-    <Header title={props.showComp} subtitle={'Wähle das passende Item!'} />
+    <Header title={props.trainings[0]} subtitle={'Wähle das passende Item!'}/>
     {
-      props.showComp === 'scores' && <Scores />
-    }
-    {
-      props.showComp === 'intents' && <Intents />
-    }
-    {
-      props.showComp === 'events' && <Events />
+      props.trainings.map((training) => {
+        console.log(training);
+        switch (training.component) {
+          case SHOW_INTENTS:
+            return <Intents/>;
+          case SHOW_ACTIONS:
+            return <Scores/>;
+          case SHOW_EVENTS:
+            return <Events/>;
+          default:
+            return <Intents/>;
+        }
+      })
     }
 
   </div>;
 
 Training.propTypes = {
-  showComp: PropTypes.string
+  showComp: PropTypes.string,
+  trainings: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
 Training.defaultProps = {
   showComp: 'intents'
 };
 
-export default Training;
+export default connect(store => ({
+  trainings: store.trainings
+}))(Training);

@@ -127,6 +127,10 @@ export const PROP_TYPES = {
       })
     }),
     text: PropTypes.string
+  }),
+
+  TRAINING: ImmutablePropTypes.contains({
+    component: PropTypes.string
   })
   //
   // TRAINING_MESSAGE: ImmutablePropTypes.contains({
