@@ -3,7 +3,6 @@ import { PROP_TYPES } from 'constants';
 import PropTypes from 'prop-types';
 
 import './style.scss';
-import {ADD_INTENT} from "../../../../../../../../store/intent-actions";
 
 class Intent extends PureComponent {
 
@@ -15,6 +14,7 @@ class Intent extends PureComponent {
   handleClick() {
     console.log(`Intent was clicked: ${this.props.intent.get('name')}`);
     if (this.props.isHighestConfidence) {
+      this.onIntentChoice();
       console.log('isHighestConfidence = true');
     }
   }
@@ -35,7 +35,8 @@ class Intent extends PureComponent {
 
 Intent.propTypes = {
   intent: PROP_TYPES.INTENT,
-  isHighestConfidence: PropTypes.bool
+  isHighestConfidence: PropTypes.bool,
+  onIntentChoice: PropTypes.func
 };
 
 export default Intent;

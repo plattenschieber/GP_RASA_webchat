@@ -16,6 +16,7 @@ import {
 import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
 import WidgetLayout from './layout';
 import WidgetLayoutTrain from './layout-training';
+import {SHOW_ACTIONS, showActions} from "../../store/training-actions";
 
 
 class Widget extends Component {
@@ -100,12 +101,20 @@ class Widget extends Component {
     event.target.message.value = '';
   };
 
+  // handleNewIntentChoice = (intent) =>{
+  //
+  // }
+  handleIntentChoice = () => {
+    this.props.dispatch(showActions());
+  }
+
   render() {
 
     return this.props.enableTraining ?
       (<WidgetLayoutTrain
         onToggleConversation={this.toggleConversation}
         onSendMessage={this.handleMessageSubmit}
+        onIntentChoice={this.handleIntentChoice}
         title={this.props.title}
         subtitle={this.props.subtitle}
         customData={this.props.customData}

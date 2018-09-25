@@ -11,21 +11,21 @@ import connect from 'react-redux/es/connect/connect';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { SHOW_ACTIONS, SHOW_EVENTS, SHOW_INTENTS } from '../../../../store/training-actions';
 
-const Training = props =>
+const Training = ({trainings, onIntentChoice}) =>
   <div className="training-container">
-    <Header title={props.trainings[0]} subtitle={'Wähle das passende Item!'}/>
+    <Header title={trainings[0]} subtitle={'Wähle das passende Item!'} />
     {
-      props.trainings.map((training) => {
+      trainings.map((training) => {
         console.log(training);
         switch (training.component) {
           case SHOW_INTENTS:
-            return <Intents/>;
+            return <Intents onIntentChoice={onIntentChoice} />;
           case SHOW_ACTIONS:
-            return <Scores/>;
+            return <Scores />;
           case SHOW_EVENTS:
-            return <Events/>;
+            return <Events />;
           default:
-            return <Intents/>;
+            return <Intents />;
         }
       })
     }
@@ -33,12 +33,8 @@ const Training = props =>
   </div>;
 
 Training.propTypes = {
-  showComp: PropTypes.string,
-  trainings: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
-};
-
-Training.defaultProps = {
-  showComp: 'intents'
+  trainings: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+  onIntentChoice: PropTypes.func
 };
 
 export default connect(store => ({
