@@ -11,7 +11,8 @@ import { addScore, clearScores, predictScore } from './score-actions';
 import intents from './reducers/intentReducer';
 import events from './reducers/eventReducer';
 import { addIntent, clearIntents } from './intent-actions';
-import { addEvent } from './event-actions';
+import { addEvent, clearEvents } from './event-actions';
+import { showIntents } from './training-actions';
 
 
 const uuid = require('uuid/v1');
@@ -49,7 +50,7 @@ function initStore(hint, socket, serverUrl) {
 
         console.log('Will dispatch Events...');
         console.log('Clear all previous events from store');
-        store.dispatch(clearScores());
+        store.dispatch(clearEvents());
         res.data.events.forEach((event) => {
           store.dispatch(
             addEvent(event.event, event.name, event.timestamp, event.parse_data, event.text));
@@ -86,6 +87,8 @@ function initStore(hint, socket, serverUrl) {
           store.dispatch(predictScore());
         }else{
           store.dispatch(addResponseMessage('... warte auf Antwort'));
+          store.dispatch(clearIntents());
+          store.dispatch(showIntents());
         }
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
