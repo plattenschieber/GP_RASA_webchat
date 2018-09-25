@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import axios from 'axios';
 
 import { addResponseMessage } from 'actions';
@@ -64,7 +64,7 @@ function initStore(hint, socket, serverUrl) {
       console.log('clear all previous scores from store');
       store.dispatch(clearScores());
       console.log(`Request to: ${serverUrl}/conversations/${conversationID}/predict`);
-      axios.post((`${serverUrl}/conversations/${conversationID}/predict`)).then((res) => {git
+      axios.post((`${serverUrl}/conversations/${conversationID}/predict`)).then((res) => {
         console.log(`Respone from ${serverUrl}/conversations/${conversationID}/predict was successful`);
         console.log(`Recieved ${res.data.scores.length} Actions...`);
         res.data.scores.forEach((score) => {
@@ -80,8 +80,13 @@ function initStore(hint, socket, serverUrl) {
         action: action.action
       }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
         console.log(`Respone from ${serverUrl}/conversations/${conversationID}/execute was successful : ${JSON.stringify(res)}`);
-        store.dispatch(addResponseMessage(res.data.messages[0].text));
-        store.dispatch(predictScore());
+
+        if (action.action != 'action_listen') {
+          store.dispatch(addResponseMessage(res.data.messages[0].text));
+          store.dispatch(predictScore());
+        }else{
+          store.dispatch(addResponseMessage('... warte auf Antwort'));
+        }
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
       });
