@@ -12,11 +12,15 @@ class Intents extends Component {
     super(props);
     this.handleIntentChoice = this.handleIntentChoice.bind(this);
   }
-  // handleNewIntentChoice = (intent) =>{
-  //
-  // }
-  handleIntentChoice() {
-    this.props.dispatch(showActions());
+
+  handleIntentChoice(intent) {
+    if (intent === this.props.intents.get(0)) {
+      this.props.dispatch(showActions());
+    } else {
+      console.log('Other Intent chosen');
+      // Revert events
+      // Post new events + new intent
+    }
   }
 
   render() {
@@ -26,8 +30,7 @@ class Intents extends Component {
           this.props.intents.map((intent, index) =>
             <Intent
               intent={intent} key={index}
-              isHighestConfidence={index === 0}
-              onIntentChoice={() => this.handleIntentChoice()}
+              onIntentChoice={() => this.handleIntentChoice(intent)}
             />
           )
         }

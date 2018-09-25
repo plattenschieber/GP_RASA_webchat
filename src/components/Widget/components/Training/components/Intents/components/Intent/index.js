@@ -12,11 +12,8 @@ class Intent extends PureComponent {
 
   handleClick() {
     console.log(`Intent was clicked: ${this.props.intent.get('name')}`);
-    if (this.props.isHighestConfidence) {
-      this.props.onIntentChoice();
-      console.log('isHighestConfidence = true');
+    this.props.onIntentChoice(this.props.intent);
     }
-  }
 
   render() {
     return (
@@ -34,7 +31,6 @@ class Intent extends PureComponent {
 
 Intent.propTypes = {
   intent: PROP_TYPES.INTENT,
-  isHighestConfidence: PropTypes.bool,
   onIntentChoice: PropTypes.func
 };
 
