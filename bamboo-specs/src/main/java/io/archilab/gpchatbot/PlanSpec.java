@@ -2,7 +2,6 @@ package io.archilab.gpchatbot;
 
 import com.atlassian.bamboo.specs.api.BambooSpec;
 import com.atlassian.bamboo.specs.api.builders.BambooKey;
-import com.atlassian.bamboo.specs.api.builders.BambooOid;
 import com.atlassian.bamboo.specs.api.builders.Variable;
 import com.atlassian.bamboo.specs.api.builders.deployment.Deployment;
 import com.atlassian.bamboo.specs.api.builders.deployment.Environment;
@@ -41,19 +40,16 @@ import com.atlassian.bamboo.specs.util.BambooServer;
 public class PlanSpec {
 
   public Plan plan() {
-    final Plan plan = new Plan(
-        new Project().oid(new BambooOid("ky5ricqu8qv5"))
-            .key(new BambooKey("CHAT")).name("Chatbot"),
+    final Plan plan = new Plan(new Project().key(new BambooKey("CHAT")).name("Chatbot"),
         "webchat", new BambooKey("WEB"))
-        .oid(new BambooOid("kxw2ardmf0u9"))
         .pluginConfigurations(new ConcurrentBuilds()
             .useSystemWideDefault(false))
         .stages(new Stage("Default Stage")
-            .jobs(new Job("Default Job", new BambooKey("JOB1")).artifacts(
-                new Artifact().name("docker-compose-prod")
+            .jobs(new Job("Default Job", new BambooKey("JOB1"))
+                .artifacts(new Artifact().name("docker-compose-prod")
                     .copyPattern("docker-compose.prod.yaml")
                     .location("./docker").shared(true).required(true),
-                new Artifact().name("docker-compose")
+                  new Artifact().name("docker-compose")
                     .copyPattern("docker-compose.yaml")
                     .location("./docker").shared(true).required(true))
                 .tasks(new VcsCheckoutTask()
@@ -110,10 +106,8 @@ public class PlanSpec {
   }
 
   public Deployment deployment() {
-    final Deployment deployment = new Deployment(new PlanIdentifier("CHAT", "WEB")
-        .oid(new BambooOid("kxw2ardmf0u9")),
+    final Deployment deployment = new Deployment(new PlanIdentifier("CHAT", "WEB"),
         "webchat-deployment")
-        .oid(new BambooOid("ky8ja8kbwq9t"))
         .releaseNaming(new ReleaseNaming("release-46")
             .autoIncrement(true))
         .environments(new Environment("Production")
