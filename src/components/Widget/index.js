@@ -101,20 +101,12 @@ class Widget extends Component {
     event.target.message.value = '';
   };
 
-  // handleNewIntentChoice = (intent) =>{
-  //
-  // }
-  handleIntentChoice = () => {
-    this.props.dispatch(showActions());
-  }
-
   render() {
 
     return this.props.enableTraining ?
       (<WidgetLayoutTrain
         onToggleConversation={this.toggleConversation}
         onSendMessage={this.handleMessageSubmit}
-        onIntentChoice={this.handleIntentChoice}
         title={this.props.title}
         subtitle={this.props.subtitle}
         customData={this.props.customData}

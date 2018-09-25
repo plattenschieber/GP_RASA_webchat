@@ -5,18 +5,29 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 import Intent from './components/Intent';
+import {showActions} from "../../../../../../store/training-actions";
 
 class Intents extends Component {
+  constructor(props) {
+    super(props);
+    this.handleIntentChoice = this.handleIntentChoice.bind(this);
+  }
+  // handleNewIntentChoice = (intent) =>{
+  //
+  // }
+  handleIntentChoice() {
+    this.props.dispatch(showActions());
+  }
 
   render() {
     return (
       <div id="intents" className="intents-container">
         {
-          this.props.intents.map((intent, index, onIntentChoice) =>
+          this.props.intents.map((intent, index) =>
             <Intent
               intent={intent} key={index}
               isHighestConfidence={index === 0}
-              onIntentChoice={onIntentChoice}
+              onIntentChoice={() => this.handleIntentChoice()}
             />
           )
         }
@@ -27,7 +38,6 @@ class Intents extends Component {
 
 Intents.propType = {
   intents: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
-  onIntentChoice: PropTypes.func
 };
 
 export default connect(store => ({

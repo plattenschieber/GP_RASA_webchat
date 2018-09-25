@@ -11,7 +11,7 @@ const WidgetLayoutTrain = props =>
 
     <div className={'training-widget-container'}>
       {
-        <Training onIntentChoice={props.onIntentChoice} />
+        <Training />
       }
     </div>
     <div className={props.fullScreenMode ? 'widget-container full-screen' : 'widget-container'}>
@@ -35,7 +35,6 @@ WidgetLayoutTrain.propTypes = {
   subtitle: PropTypes.string,
   onSendMessage: PropTypes.func,
   onToggleConversation: PropTypes.func,
-  onIntentChoice: PropTypes.func,
   showChat: PropTypes.bool,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,

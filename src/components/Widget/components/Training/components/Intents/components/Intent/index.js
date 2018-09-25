@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 class Intent extends PureComponent {
-
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -13,8 +12,9 @@ class Intent extends PureComponent {
 
   handleClick() {
     console.log(`Intent was clicked: ${this.props.intent.get('name')}`);
+    console.log(this.props);
     if (this.props.isHighestConfidence) {
-      this.onIntentChoice();
+      this.props.onIntentChoice();
       console.log('isHighestConfidence = true');
     }
   }
