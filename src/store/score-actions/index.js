@@ -5,6 +5,7 @@
 export const ADD_SCORE = 'ADD_SCORE';
 export const CLEAR_SCORES = 'CLEAR_SCORES';
 export const PREDICT_SCORES = 'EMIT_PREDICT';
+export const EXECUTE_ACTION = 'EXECUTE_ACTION';
 
 /*
  action creators
@@ -20,4 +21,8 @@ export function clearScores() {
 
 export function predictScore() {
   return { type: PREDICT_SCORES };
+}
+
+export function chooseScore(action) {
+  return { type: EXECUTE_ACTION, action};
 }

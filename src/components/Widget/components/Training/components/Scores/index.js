@@ -5,15 +5,29 @@ import { connect } from 'react-redux';
 import './style.scss';
 
 import Score from './components/Score';
+import {chooseScore} from "../../../../../../store/score-actions";
 
 class Scores extends Component {
+  constructor(props) {
+    super(props);
+    this.handleActionChoice = this.handleActionChoice.bind(this);
+  }
 
+  handleActionChoice(score) {
+    console.log('HandleActionChoice');
+    console.log(score.get('action'));
+    this.props.dispatch(chooseScore(score.get('action')));
+  }
   render() {
     return (
       <div id="scores" className="scores-container">
         {
           this.props.scores.map((score, index) =>
-            <Score score={score} key={index} onClick={console.log('Click on Score')} />
+            <Score
+              score={score}
+              key={index}
+              onActionChoice={() => this.handleActionChoice(score)}
+            />
           )
         }
       </div>

@@ -1,5 +1,5 @@
 import { Map, List } from 'immutable';
-import { ADD_SCORE, CLEAR_SCORES, PREDICT_SCORES } from '../score-actions';
+import { ADD_SCORE, CLEAR_SCORES, PREDICT_SCORES, EXECUTE_ACTION } from '../score-actions';
 
 
 const initialState = List([]);
@@ -12,6 +12,8 @@ export default function reducer(state = initialState, action) {
     case CLEAR_SCORES:
       return state.clear();
     case PREDICT_SCORES:
+      return state;
+    case EXECUTE_ACTION:
       return state;
     default:
       return state;

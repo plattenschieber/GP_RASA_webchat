@@ -12,7 +12,6 @@ class Intent extends PureComponent {
 
   handleClick() {
     console.log(`Intent was clicked: ${this.props.intent.get('name')}`);
-    console.log(this.props);
     if (this.props.isHighestConfidence) {
       this.props.onIntentChoice();
       console.log('isHighestConfidence = true');

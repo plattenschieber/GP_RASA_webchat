@@ -1,5 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
+
+import { addResponseMessage } from 'actions';
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 import scores from './reducers/scoresReducer';
@@ -10,6 +12,7 @@ import intents from './reducers/intentReducer';
 import events from './reducers/eventReducer';
 import { addIntent, clearIntents } from './intent-actions';
 import { addEvent } from './event-actions';
+
 
 const uuid = require('uuid/v1');
 
@@ -72,11 +75,13 @@ function initStore(hint, socket, serverUrl) {
       });
     }
 
-    if (action.type === 'EMIT_EXECUTE_ACTIONS') {
+    if (action.type === 'EXECUTE_ACTION') {
       axios.post((`${serverUrl}/conversations/${conversationID}/execute`), {
         action: action.action
       }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
         console.log(`Respone from ${serverUrl}/conversations/${conversationID}/execute was successful : ${JSON.stringify(res)}`);
+        store.dispatch(addResponseMessage(res.data.messages[0].text));
+        store.dispatch(predictScore());
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
       });

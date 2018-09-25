@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PROP_TYPES } from 'constants';
+import PropTypes from 'prop-types';
 
 import './style.scss';
 
@@ -12,6 +13,7 @@ class Score extends PureComponent {
 
   handleClick() {
     console.log(`Score was clicked: ${this.props.score.get('action')}`);
+    this.props.onActionChoice(this.props.score.get('action'));
   }
 
   render() {
@@ -29,7 +31,8 @@ class Score extends PureComponent {
 }
 
 Score.propTypes = {
-  score: PROP_TYPES.SCORE
+  score: PROP_TYPES.SCORE,
+  onActionChoice: PropTypes.func
 };
 
 export default Score;
