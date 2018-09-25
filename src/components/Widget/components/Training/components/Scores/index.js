@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import './style.scss';
 
 import Score from './components/Score';
-import {chooseScore} from "../../../../../../store/score-actions";
+import { chooseScore } from '../../../../../../store/score-actions';
 
 class Scores extends Component {
   constructor(props) {

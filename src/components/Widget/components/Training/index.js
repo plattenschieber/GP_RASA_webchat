@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import connect from 'react-redux/es/connect/connect';
 
@@ -14,7 +13,7 @@ import Header from '../Conversation/components/Header';
 
 const Training = props =>
   <div className="training-container">
-    <Header title={props.trainings[0]} subtitle={'Wähle das passende Item!'}/>
+    <Header title={props.trainings.get(0).get('component')} subtitle={'Wähle das passende Item!'}/>
     {
       props.trainings.map((training, index) => {
         switch (training.get('component')) {
