@@ -18,11 +18,12 @@ class Scores extends Component {
     console.log(score.get('action'));
     this.props.dispatch(chooseScore(score.get('action')));
   }
+
   render() {
     return (
       <div id="scores" className="scores-container">
         {
-          this.props.scores.map((score, index) =>
+          this.props.scores.sortBy(item => item.get('score')).reverse().map((score, index) =>
             <Score
               score={score}
               key={index}
