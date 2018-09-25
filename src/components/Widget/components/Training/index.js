@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -17,19 +14,18 @@ import Header from '../Conversation/components/Header';
 
 const Training = props =>
   <div className="training-container">
-    <Header title={props.trainings[0]} subtitle={'Wähle das passende Item!'} />
+    <Header title={props.trainings[0]} subtitle={'Wähle das passende Item!'}/>
     {
       props.trainings.map((training, index) => {
-        console.log(training);
-        switch (training.component) {
+        switch (training.get('component')) {
           case SHOW_INTENTS:
-            return <Intents key={index} />;
+            return <Intents key={index}/>;
           case SHOW_ACTIONS:
-            return <Scores key={index} />;
+            return <Scores key={index}/>;
           case SHOW_EVENTS:
-            return <Events key={index} />;
+            return <Events key={index}/>;
           default:
-            return <Intents key={index} />;
+            return <Intents key={index}/>;
         }
       })
     }
