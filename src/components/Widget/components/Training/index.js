@@ -29,7 +29,7 @@ Training.propTypes = {
 };
 
 Training.defaultProps = {
-  showComp: 'events'
+  showComp: 'intents'
 };
 
 export default Training;

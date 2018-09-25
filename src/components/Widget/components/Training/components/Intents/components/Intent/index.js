@@ -17,11 +17,11 @@ class Intent extends PureComponent {
   render() {
     return (
       <div className="intent" onClick={this.handleClick}>
-        <div className="confidence">
-          <p style={{ margin: '0' }}>{this.props.intent.get('confidence')}</p>
-        </div>
         <div className="name">
-          <p style={{ margin: '0' }}>{this.props.intent.get('name')}</p>
+          <p style={{ margin: '0' }}><strong>Intent:</strong>&nbsp;{this.props.intent.get('name')}</p>
+        </div>
+        <div className="confidence">
+          <p style={{ margin: '0' }}>{Math.round(this.props.intent.get('confidence') * 100)}%</p>
         </div>
       </div>
     );

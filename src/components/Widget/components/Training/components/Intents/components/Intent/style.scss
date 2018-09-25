@@ -3,11 +3,16 @@
 
 .intent {
   @include intent-bubble($turqois-1, $white);
-  margin-left: auto;
-  margin: 10px;
+  margin: auto;
+  margin-top: 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: 14px;
   font-family: $roboto;
+}
+
+.intent:hover {
+  transform: scale(1.02);
 }
 
