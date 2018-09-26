@@ -95,8 +95,8 @@ function initStore(hint, socket, serverUrl) {
       });
     }
 
-    if (action.type === 'EMIT_RESET_TRACKER') {
-      axios.put((`${serverUrl}/conversations/${conversationID}/tracker/events`), action.eventTracker, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
+    if (action.type === 'RESET_TRACKER') {
+      axios.put((`${serverUrl}/conversations/${conversationID}/tracker/events`), store.getState().events, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
         console.log(`Respone from ${serverUrl}/conversations/${conversationID}/tracker/events was successful : ${JSON.stringify(res)}`);
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);

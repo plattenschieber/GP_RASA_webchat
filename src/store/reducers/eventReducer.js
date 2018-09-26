@@ -1,5 +1,10 @@
 import { Map, List } from 'immutable';
-import { ADD_EVENT, CLEAR_EVENTS } from '../event-actions';
+import {
+  ADD_EVENT,
+  CLEAR_EVENTS,
+  REMOVE_LAST_EVENT,
+  RESET_TRACKER
+} from '../event-actions';
 
 const initialState = List([Map({
   eventType: 'action',
@@ -19,6 +24,10 @@ export default function reducer(state = initialState, action) {
         parse_data: action.parseData,
         text: action.text
       }));
+    case REMOVE_LAST_EVENT:
+      return state.pop();
+    case RESET_TRACKER:
+      return state;
     case CLEAR_EVENTS:
       return state.clear();
     default:
