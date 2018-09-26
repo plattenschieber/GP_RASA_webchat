@@ -6,6 +6,7 @@ import './style.scss';
 const Color = require('color');
 
 const red = Color('#b92211');
+const yellow = Color('#ffff00')
 const green = Color('#35e65d');
 
 
@@ -32,7 +33,7 @@ class Score extends PureComponent {
         <div className="score-value">
           <p style={{
             margin: '0',
-            color: red.mix(green, this.props.score.get('score'))
+            color: red.mix(yellow, this.props.score.get('score') * 2).mix(green, (this.props.score.get('score') * 2) - 1)
           }}>{Math.round(this.props.score.get('score') * 100)}%</p>
         </div>
       </div>
