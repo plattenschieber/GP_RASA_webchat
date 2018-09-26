@@ -2,7 +2,7 @@
 @import "common.scss";
 
 .intent {
-  @include intent-bubble($turqois-1, $white);
+  @include intent-bubble($grey-2, $black);
   margin: auto;
   margin-top: 10px;
   display: flex;

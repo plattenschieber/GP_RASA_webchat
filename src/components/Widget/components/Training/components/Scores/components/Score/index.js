@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react';
 import { PROP_TYPES } from 'constants';
 import PropTypes from 'prop-types';
-
 import './style.scss';
+
+const Color = require('color');
+
+const red = Color('#b92211');
+const green = Color('#35e65d');
+
 
 class Score extends PureComponent {
 
@@ -16,14 +21,20 @@ class Score extends PureComponent {
     this.props.onActionChoice(this.props.score.get('action'));
   }
 
+
   render() {
     return (
       <div className="score" onClick={this.handleClick}>
-        <div className="action" >
+        <div className="action">
           <p style={{ margin: '0' }}>{this.props.score.get('action')}</p>
+
         </div>
-        <div className="score-value" >
-          <p style={{ margin: '0' }}>{this.props.score.get('score')}</p>
+
+        <div className="score-value">
+          <p style={{
+            margin: '0',
+            color: red.mix(green, this.props.score.get('score'))
+          }}>{Math.round(this.props.score.get('score') * 100)}%</p>
         </div>
       </div>
     );
@@ -32,6 +43,7 @@ class Score extends PureComponent {
 
 Score.propTypes = {
   score: PROP_TYPES.SCORE,
+
   onActionChoice: PropTypes.func
 };
 

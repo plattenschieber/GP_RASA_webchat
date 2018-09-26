@@ -10,10 +10,12 @@ import { SHOW_ACTIONS, SHOW_EVENTS, SHOW_INTENTS } from '../../../../store/train
 import './style.scss';
 import Header from '../Conversation/components/Header';
 
-
 const Training = props =>
   <div className="training-container">
-    <Header title={props.trainings.get(0).get('component')} subtitle={'Wähle das passende Item!'}/>
+    <Header
+      title={props.trainings.get(0).get('component')}
+      subtitle={'Wähle das passende Item!'}
+    />
     {
       props.trainings.map((training, index) => {
         switch (training.get('component')) {
