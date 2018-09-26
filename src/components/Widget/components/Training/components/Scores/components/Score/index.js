@@ -27,7 +27,6 @@ class Score extends PureComponent {
       <div className="score" onClick={this.handleClick}>
         <div className="action">
           <p style={{ margin: '0' }}>{this.props.score.get('action')}</p>
-
         </div>
 
         <div className="score-value">
