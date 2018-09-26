@@ -1,4 +1,29 @@
-# webchat
+# webchat Zurich/Online Trainer
+
+##
+Dieses Projekt erweitert den WebChat von (https://github.com/mrbot-ai/rasa-webchat) um einen "Online Trainings"-Modus und passt ihm dem Cooperate Design von Zurich an.
+
+TBD: Starten des "Online Training" Modus über Environment Variablen.
+
+## Docker
+Diesem Projekt liegt ein Docker-File und mehrere Docker-Compose-Files bei. Diese stellen das Projekt als Docker-Container zu Verfügung.
+Um das Image zu bauen, muss der folgende Befehl ausgeführt werden:
+
+```bash
+docker build -t docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat .
+```
+
+Um den Service lokal zu starten, muss der folgende Befehl ausgeführt werden:
+```bash
+docker-compose -p gpb -f docker/docker-compose.yaml -f docker/docker-compose.local.yaml up -d
+```
+
+Zum Stoppen muss dieser Befehl ausgeführt werden:
+```bash
+docker-compose -p gpb -f docker/docker-compose.yaml -f docker/docker-compose.local.yaml down
+```
+
+# Original webchat Readme
 
 A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
 ## Features
