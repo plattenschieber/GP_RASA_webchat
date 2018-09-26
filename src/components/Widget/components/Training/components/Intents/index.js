@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 import Intent from './components/Intent';
-import {showActions} from '../../../../../../store/training-actions';
+import { showActions } from '../../../../../../store/training-actions';
 import {
   removeLastEvent,
   resetTracker
 } from '../../../../../../store/event-actions';
+import { emitUserMessageIntent } from '../../../../../../store/actions';
 
 class Intents extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Intents extends Component {
       console.log('Other Intent chosen');
       // Revert events
       this.props.dispatch(removeLastEvent());
-      this.props.dispatch(resetTracker());
+      this.props.dispatch(resetTracker(intent));
       // Post new events + new intent
     }
   }
@@ -46,7 +47,7 @@ class Intents extends Component {
 }
 
 Intents.propType = {
-  intents: ImmutablePropTypes.listOf(ImmutablePropTypes.map),
+  intents: ImmutablePropTypes.listOf(ImmutablePropTypes.map)
 };
 
 export default connect(store => ({

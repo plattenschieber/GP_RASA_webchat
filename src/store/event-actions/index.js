@@ -11,16 +11,16 @@ export const RESET_TRACKER = 'RESET_TRACKER';
  action creators
  */
 
-export function addEvent(eventtype, name, timestamp, parseData, text) {
-  return { type: ADD_EVENT, eventtype, name, timestamp, parseData, text };
+export function addEvent(event, name, timestamp, parseData, text) {
+  return { type: ADD_EVENT, event, name, timestamp, parseData, text };
 }
 
 export function removeLastEvent() {
   return { type: REMOVE_LAST_EVENT };
 }
 
-export function resetTracker() {
-  return { type: RESET_TRACKER };
+export function resetTracker(intent) {
+  return { type: RESET_TRACKER, intent };
 }
 
 export function clearEvents() {
