@@ -1,7 +1,8 @@
-#!/bin/usr/env bash
+#!/bin/bash
+echo "Replace ENV in default.conf"
+envsubst '${ROOT}' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf
 
-pwd
-ls /etc/conf.d/
+ls $ROOT
 cat /etc/conf.d/default.conf
-envsubst < /etc/conf.d/default.conf > /etc/conf.d/default.conf
-cat /etc/conf.d/default.conf
+
+echo "Will start nginx now!"
