@@ -116,7 +116,7 @@ export const PROP_TYPES = {
   }),
 
   EVENT: ImmutablePropTypes.contains({
-    eventType: PropTypes.string,
+    event: PropTypes.string,
     name: PropTypes.string,
     timestamp: PropTypes.number,
     parse_data: PropTypes.shape({

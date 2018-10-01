@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import axios from 'axios';
 
-import { addResponseMessage } from 'actions';
+import { addResponseMessage, emitUserMessageIntent } from 'actions';
 import behavior from './reducers/behaviorReducer';
 import messages from './reducers/messagesReducer';
 import scores from './reducers/scoresReducer';
@@ -12,14 +12,15 @@ import intents from './reducers/intentReducer';
 import events from './reducers/eventReducer';
 import { addIntent, clearIntents } from './intent-actions';
 import { addEvent, clearEvents } from './event-actions';
-import { showIntents } from './training-actions';
+import { showActions, showIntents } from './training-actions';
+import { EMIT_NEW_USER_MESSAGE, EMIT_NEW_USER_MESSAGE_INTENT } from './actions/actionTypes';
 
 
 const uuid = require('uuid/v1');
 
 let store = 'call initStore first';
 
-function initStore(hint, socket, serverUrl) {
+function initStore(hint, socket, serverUrl, enableTrain) {
   const conversationID = uuid();
   const socketMiddleWare = store => next => (action) => {
     if (action.type === 'EMIT_NEW_USER_MESSAGE') {
@@ -30,20 +31,32 @@ function initStore(hint, socket, serverUrl) {
   };
 
   const restMiddleWare = store => next => (action) => {
-    if (action.type === 'EMIT_NEW_USER_MESSAGE') {
+    if (action.type === EMIT_NEW_USER_MESSAGE || action.type === EMIT_NEW_USER_MESSAGE_INTENT) {
       console.log('clear all previous Intents from store');
       store.dispatch(clearIntents());
 
       axios.post((`${serverUrl}/conversations/${conversationID}/messages`), {
-        sender: 'user',
-        text: action.text,
-        parse_data: action.intent ? action.intent : null
-      }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/messages was successful`);
-        console.log(`Recieved ${res.data.latest_message.intent_ranking.length} Intents...`);
-        res.data.latest_message.intent_ranking.forEach((intent) => {
-          store.dispatch(addIntent(intent.name, intent.confidence));
-        });
+          sender: 'user',
+          text: action.text,
+          parse_data: action.intent ? {
+            intent: action.intent,
+            entities: [],
+            text: action.text
+          } : null
+        },
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      ).then((res) => {
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/messages was successful `);
+
+
+        if (res.data.latest_message && res.data.latest_message.intent_ranking) {
+          console.log(`Recieved ${res.data.latest_message.intent_ranking.length} Intents...`);
+          res.data.latest_message.intent_ranking.forEach((intent) => {
+            store.dispatch(addIntent(intent.name, intent.confidence));
+          });
+        }
 
         console.log('Will dispatch scores...');
         store.dispatch(predictScore());
@@ -80,12 +93,12 @@ function initStore(hint, socket, serverUrl) {
       axios.post((`${serverUrl}/conversations/${conversationID}/execute`), {
         action: action.action
       }, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/execute was successful : ${JSON.stringify(res)}`);
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/execute was successful`);
 
         if (action.action != 'action_listen') {
           store.dispatch(addResponseMessage(res.data.messages[0].text));
           store.dispatch(predictScore());
-        }else{
+        } else {
           store.dispatch(addResponseMessage('... warte auf Antwort'));
           store.dispatch(clearIntents());
           store.dispatch(showIntents());
@@ -97,7 +110,10 @@ function initStore(hint, socket, serverUrl) {
 
     if (action.type === 'RESET_TRACKER') {
       axios.put((`${serverUrl}/conversations/${conversationID}/tracker/events`), store.getState().events, { headers: { 'Content-Type': 'application/json' } }).then((res) => {
-        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/tracker/events was successful : ${JSON.stringify(res)}`);
+        console.log(`Respone from ${serverUrl}/conversations/${conversationID}/tracker/events was successful`);
+        console.log(store.getState().messages.get(store.getState().messages.size - 1).get('text'), action.intent);
+        store.dispatch(emitUserMessageIntent(store.getState().messages.get(store.getState().messages.size - 1).get('text'), action.intent));
+        store.dispatch(showActions());
       }).catch((err) => {
         console.log(`Error: ${JSON.stringify(err)}`);
       });
@@ -113,7 +129,7 @@ function initStore(hint, socket, serverUrl) {
     reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(restMiddleWare)
+    applyMiddleware(enableTrain ? restMiddleWare : socketMiddleWare)
   );
   /* eslint-enable */
 }

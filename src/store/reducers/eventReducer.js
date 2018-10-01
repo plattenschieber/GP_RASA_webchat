@@ -7,7 +7,7 @@ import {
 } from '../event-actions';
 
 const initialState = List([Map({
-  eventType: 'action',
+  event: 'action',
   name: 'action_listen',
   timestamp: 1537344261.3186414,
   text: 'test text'
@@ -18,7 +18,7 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_EVENT:
       return state.push(Map({
-        eventType: action.eventtype,
+        event: action.event,
         name: action.name,
         timestamp: action.timestamp,
         parse_data: action.parseData,

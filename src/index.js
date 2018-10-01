@@ -11,10 +11,10 @@ const ConnectedWidget = (props) => {
   if (!props.enableTraining) {
     console.log(`Init with socket on url: ${props.socketUrl}`);
     sock = socket(props.socketUrl, props.customData);
-    initStore(props.inputTextFieldHint, sock);
+    initStore(props.inputTextFieldHint, sock, null, false);
   } else {
     console.log(`Init with Training Mode on url: ${props.trainingUrl}`);
-    initStore(props.inputTextFieldHint, null, props.trainingUrl);
+    initStore(props.inputTextFieldHint, null, props.trainingUrl, true);
   }
 
   return (<Provider store={store}>
