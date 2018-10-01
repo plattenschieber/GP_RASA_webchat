@@ -49,6 +49,9 @@ public class PlanSpec {
                 .artifacts(new Artifact().name("docker-compose-prod")
                     .copyPattern("docker-compose.prod.yaml")
                     .location("./docker").shared(true).required(true),
+                  new Artifact().name("docker-compose-prod")
+                    .copyPattern("docker-compose.trainer.yaml")
+                    .location("./docker").shared(true).required(true),
                   new Artifact().name("docker-compose")
                     .copyPattern("docker-compose.yaml")
                     .location("./docker").shared(true).required(true))
@@ -119,7 +122,10 @@ public class PlanSpec {
                         .path("./artifacts")),
                 new ScriptTask()
                     .inlineBody(
-                        "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth \\\n  -c ./artifacts/docker-compose.yaml \\\n  -c ./artifacts/docker-compose.prod.yaml \\\n  webchat"))
+                        "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth \\\n  -c ./artifacts/docker-compose.yaml \\\n  -c ./artifacts/docker-compose.prod.yaml \\\n  webchat"),
+                new ScriptTask()
+                    .inlineBody(
+                        "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth \\\n  -c ./artifacts/docker-compose.yaml \\\n  -c ./artifacts/docker-compose.trainer.yaml \\\n  webchat"))
             .triggers(new AfterSuccessfulBuildPlanTrigger())
             .variables(new Variable("tag",
                 "${bamboo.inject.commit-hash}")));

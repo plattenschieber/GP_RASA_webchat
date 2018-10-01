@@ -22,6 +22,7 @@ RUN rm -rf /usr/share/nginx/html/*
 # copy default config
 COPY /nginx/default.conf /etc/nginx/conf.d/
 COPY /nginx/setenv.sh /etc/nginx/conf.d/
+RUN chmod 777 /etc/nginx/conf.d/setenv.sh
 
 COPY --from=builder /ng-app/dist /usr/share/nginx/html/static-online-training
 COPY --from=builder /ng-app/dist /usr/share/nginx/html/static
