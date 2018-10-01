@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: path.join(__dirname, 'index.js'),
   output: {
-    path: path.resolve(__dirname, dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'webchat.js',
     library: 'WebChat',
     libraryTarget: 'umd'
