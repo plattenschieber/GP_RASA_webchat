@@ -1,0 +1,12 @@
+@import "variables.scss";
+@import "common.scss";
+
+.event {
+  @include event-bubble($grey-3, $white);
+  margin-left: auto;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-family: $roboto;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   toggleChat,
   addUserMessage,
@@ -12,9 +12,11 @@ import {
   addImageSnippet,
   addQuickReply,
   initialize
-} from "actions";
-import { isSnippet, isVideo, isImage, isQR, isText } from "./msgProcessor";
-import WidgetLayout from "./layout";
+} from 'actions';
+import { isSnippet, isVideo, isImage, isQR, isText } from './msgProcessor';
+import WidgetLayout from './layout';
+import WidgetLayoutTrain from './layout-training';
+import {SHOW_ACTIONS, showActions} from "../../store/training-actions";
 
 
 class Widget extends Component {
@@ -30,12 +32,12 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    const { socket } = this.props;
-
-    socket.on('bot_uttered', (botUttered) => {
-      this.messages.push(botUttered);
-    });
-
+    if (!this.props.enableTraining) {
+      const { socket } = this.props;
+      socket.on('bot_uttered', (botUttered) => {
+        this.messages.push(botUttered);
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,10 +46,12 @@ class Widget extends Component {
     }
   }
 
+  /* handles new messages from user */
   dispatchMessage(message) {
     if (Object.keys(message).length === 0) {
       return;
     }
+    /* creates message to bot due to type of message */
     if (isText(message)) {
       this.props.dispatch(addResponseMessage(message.text));
     } else if (isQR(message)) {
@@ -81,7 +85,9 @@ class Widget extends Component {
     const { initPayload, initialized, customData, socket } = this.props;
     if (!initialized) {
       this.props.dispatch(initialize());
-      socket.emit('user_uttered', { message: initPayload, customData});
+      if (!this.props.enableTraining) {
+        socket.emit('user_uttered', { message: initPayload, customData });
+      }
     }
   };
 
@@ -96,8 +102,9 @@ class Widget extends Component {
   };
 
   render() {
-    return (
-      <WidgetLayout
+
+    return this.props.enableTraining ?
+      (<WidgetLayoutTrain
         onToggleConversation={this.toggleConversation}
         onSendMessage={this.handleMessageSubmit}
         title={this.props.title}
@@ -106,9 +113,23 @@ class Widget extends Component {
         profileAvatar={this.props.profileAvatar}
         showCloseButton={this.props.showCloseButton}
         fullScreenMode={this.props.fullScreenMode}
+        enableTraining={this.props.enableTraining}
         badge={this.props.badge}
-      />
-    );
+      />) :
+      (
+        <WidgetLayout
+          onToggleConversation={this.toggleConversation}
+          onSendMessage={this.handleMessageSubmit}
+          title={this.props.title}
+          subtitle={this.props.subtitle}
+          customData={this.props.customData}
+          profileAvatar={this.props.profileAvatar}
+          showCloseButton={this.props.showCloseButton}
+          fullScreenMode={this.props.fullScreenMode}
+          enableTraining={this.props.enableTraining}
+          badge={this.props.badge}
+        />
+      );
   }
 }
 
@@ -124,11 +145,12 @@ Widget.propTypes = {
   initPayload: PropTypes.string,
   initialized: PropTypes.bool,
   inputTextFieldHint: PropTypes.string,
-  handleNewUserMessage: PropTypes.func.isRequired,
+  handleNewUserMessage: PropTypes.func,
   profileAvatar: PropTypes.string,
   showCloseButton: PropTypes.bool,
   fullScreenMode: PropTypes.bool,
   badge: PropTypes.number,
+  enableTraining: PropTypes.bool,
   socket: PropTypes.shape({})
 };
 

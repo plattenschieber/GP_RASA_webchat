@@ -12,6 +12,38 @@ $roboto: 'Roboto', serif;
   font-family: $roboto;
 }
 
+@mixin score-bubble($color, $textcolor)
+{
+  background-color: $color;
+  color: $textcolor;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 215px;
+  text-align: left;
+  font-family: $roboto;
+}
+
+@mixin intent-bubble($color, $textcolor)
+{
+  background-color: $color;
+  color: $textcolor;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 315px;
+  text-align: left;
+  font-family: $roboto;
+}
+@mixin event-bubble($color, $textcolor)
+{
+  background-color: $color;
+  color: $textcolor;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 215px;
+  text-align: left;
+  font-family: $roboto;
+}
+
 @mixin borderless-message-bubble($color, $textColor) {
     border-color: $color;
     border-radius: 10px;

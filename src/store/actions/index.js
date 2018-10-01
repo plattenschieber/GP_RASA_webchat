@@ -39,6 +39,14 @@ export function emitUserMessage(text) {
   };
 }
 
+export function emitUserMessageIntent(text, intent) {
+  return {
+    type: actions.EMIT_NEW_USER_MESSAGE_INTENT,
+    text,
+    intent
+  };
+}
+
 export function addResponseMessage(text) {
   return {
     type: actions.ADD_NEW_RESPONSE_MESSAGE,

@@ -1,0 +1,18 @@
+@import "variables.scss";
+@import "common.scss";
+
+.score {
+  @include score-bubble($grey-2, $black);
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 14px;
+  font-family: $roboto;
+  max-width: 50%;
+}
+
+.score:hover {
+  transform: scale(1.02);
+}

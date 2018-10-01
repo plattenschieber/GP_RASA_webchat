@@ -20,4 +20,4 @@ export default function (socketUrl, customData) {
   });
 
   return socket;
-};
+}

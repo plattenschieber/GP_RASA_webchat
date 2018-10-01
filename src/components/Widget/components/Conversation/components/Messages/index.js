@@ -22,7 +22,7 @@ class Messages extends Component {
   getComponentToRender = (message, index, isLast) => {
     const ComponentToRender = message.get('component');
     if (message.get('type') === 'component') {
-      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast}/>;
+      return <ComponentToRender id={index} {...message.get('props')} isLast={isLast} />;
     }
     return <ComponentToRender id={index} message={message} isLast={isLast} />;
   };

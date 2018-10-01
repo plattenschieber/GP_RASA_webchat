@@ -18,6 +18,8 @@ export default {
         profileAvatar={args.profileAvatar}
         showCloseButton={args.showCloseButton}
         fullScreenMode={args.fullScreenMode}
+        enableTraining={args.enableTraining}
+        trainingUrl={args.trainingUrl}
         badge={args.badge}
       />, document.querySelector(args.selector)
 

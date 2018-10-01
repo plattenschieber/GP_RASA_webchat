@@ -25,6 +25,30 @@
   }
 }
 
+.training-container {
+  .header {
+    background-color: $blue-2;
+    border-radius: 10px 10px 0 0;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 15px 0 15px;
+    font-family: $roboto;
+  }
+
+  .title {
+    font-size: 20px;
+    margin: 0;
+    //padding: 15px 0;
+    font-family: $roboto;
+  }
+
+  .close-button {
+    display: none;
+  }
+}
+
 .full-screen {
 
   .header {

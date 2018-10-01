@@ -7,7 +7,7 @@ import {
     createLinkSnippet,
     createVideoSnippet,
     createImageSnippet,
-    createComponentMessage,
+    createComponentMessage
 } from './helper';
 
 import * as actionTypes from '../actions/actionTypes';

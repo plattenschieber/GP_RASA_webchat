@@ -90,10 +90,10 @@ export const PROP_TYPES = {
     text: PropTypes.string,
     hint: PropTypes.string,
     quick_replies: ImmutablePropTypes.listOf(
-        PropTypes.shape({
-          title: PropTypes.string,
-          payload: PropTypes.string
-        })),
+      PropTypes.shape({
+        title: PropTypes.string,
+        payload: PropTypes.string
+      })),
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
@@ -103,6 +103,44 @@ export const PROP_TYPES = {
     toggleInputDisabled: PropTypes.func,
     inputState: PropTypes.bool,
     chosenReply: PropTypes.string
+  }),
+
+  SCORE: ImmutablePropTypes.contains({
+    action: PropTypes.string,
+    score: PropTypes.number
+  }),
+
+  INTENT: ImmutablePropTypes.contains({
+    confidence: PropTypes.number,
+    name: PropTypes.string
+  }),
+
+  EVENT: ImmutablePropTypes.contains({
+    event: PropTypes.string,
+    name: PropTypes.string,
+    timestamp: PropTypes.number,
+    parse_data: PropTypes.shape({
+      entities: PropTypes.array,
+      intent: PropTypes.shape({
+        confidence: PropTypes.number,
+        name: PropTypes.string
+      })
+    }),
+    text: PropTypes.string
+  }),
+
+  TRAINING: ImmutablePropTypes.contains({
+    component: PropTypes.string
   })
+  //
+  // TRAINING_MESSAGE: ImmutablePropTypes.contains({
+  //   entities: PropTypes.Array,
+  //   intent: PropTypes.instanceOf(Intent),
+  //   intent_ranking: PropTypes.arrayOf(Intent),
+  //   model: PropTypes.string,
+  //   project: PropTypes.string,
+  //   text: PropTypes.string
+  // })
 
 };
+

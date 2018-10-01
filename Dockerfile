@@ -15,16 +15,20 @@ COPY . .
 # build the dist version of the js
 RUN npm run build
 
-FROM nginx:alpine
+FROM nginx
 
 RUN rm -rf /usr/share/nginx/html/*
 
 # copy default config
-COPY /nginx/default.conf /etc/conf.d/
+COPY /nginx/default.conf /etc/nginx/conf.d/
+COPY /nginx/setenv.sh /etc/nginx/conf.d/
 
-COPY --from=builder /ng-app/dist /usr/share/nginx/html
-COPY --from=builder /ng-app/static /usr/share/nginx/html
-COPY --from=builder /ng-app/assets /usr/share/nginx/html/assets
+COPY --from=builder /ng-app/dist /usr/share/nginx/html/static-online-training
+COPY --from=builder /ng-app/dist /usr/share/nginx/html/static
+COPY --from=builder /ng-app/static /usr/share/nginx/html/static
+COPY --from=builder /ng-app/assets /usr/share/nginx/html/static/assets
+COPY --from=builder /ng-app/static-online-training /usr/share/nginx/html/static-online-training
+COPY --from=builder /ng-app/assets /usr/share/nginx/html/static-online-training/assets
 
 EXPOSE 80
 
