@@ -49,7 +49,7 @@ public class PlanSpec {
                 .artifacts(new Artifact().name("docker-compose-prod")
                     .copyPattern("docker-compose.prod.yaml")
                     .location("./docker").shared(true).required(true),
-                  new Artifact().name("docker-compose-prod")
+                  new Artifact().name("docker-compose-trainer")
                     .copyPattern("docker-compose.trainer.yaml")
                     .location("./docker").shared(true).required(true),
                   new Artifact().name("docker-compose")
