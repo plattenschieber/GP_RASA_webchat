@@ -125,7 +125,7 @@ public class PlanSpec {
                         "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth \\\n  -c ./artifacts/docker-compose.yaml \\\n  -c ./artifacts/docker-compose.prod.yaml \\\n  webchat"),
                 new ScriptTask()
                     .inlineBody(
-                        "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth \\\n  -c ./artifacts/docker-compose.yaml \\\n  -c ./artifacts/docker-compose.trainer.yaml \\\n  webchat"))
+                        "eval $(docker-machine env gpchatbotprod)\ndocker stack deploy --with-registry-auth \\\n  -c ./artifacts/docker-compose.yaml \\\n  -c ./artifacts/docker-compose.trainer.yaml \\\n  trainingchat"))
             .triggers(new AfterSuccessfulBuildPlanTrigger())
             .variables(new Variable("tag",
                 "${bamboo.inject.commit-hash}")));
