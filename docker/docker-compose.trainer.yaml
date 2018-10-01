@@ -4,7 +4,7 @@ services:
   webchat:
     image: docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat:latest
     ports:
-    - "80:8080"
+    - "8080:80"
     environment:
     - ROOT=/usr/share/nginx/html/static-online-training
     command: bash -c "/etc/nginx/conf.d/setenv.sh && nginx-debug -g \"daemon off;\" "
