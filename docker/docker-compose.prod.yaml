@@ -6,6 +6,8 @@ services:
     ports:
     - "80:80"
     environment:
+    # path to http-server entry point
     - ROOT=/usr/share/nginx/html/static
+    # will set envs to nginx config files and run nginx
     command: bash -c "/etc/nginx/conf.d/setenv.sh && nginx-debug -g \"daemon off;\" "
 
