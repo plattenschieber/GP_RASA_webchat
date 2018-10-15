@@ -1,156 +1,52 @@
-# webchat Zurich/Online Trainer
+# Rasa Webchat & Online Trainer
+This project is a fork of the WebChat widget from [MrBot-Ai](https://github.com/mrbot-ai/rasa-webchat).
+We developed a custom online trainer where you can train and build your bots stories.
+Furthermore this project could be served with docker in order to test the widget.
 
-##
-Dieses Projekt erweitert den WebChat von (https://github.com/mrbot-ai/rasa-webchat) um einen "Online Trainings"-Modus und passt ihm dem Cooperate Design von Zurich an.
+## Structure
 
-TBD: Starten des "Online Training" Modus über Environment Variablen.
+* *docker* contains all docker-compose files, there are several to start the webchat in different modes.
+* *nginx* contains configuration for the http-server nginx.
+* *src* contains the whole source code of the widget.
+* *static* contains static files, like: index.html. Would be used to start the webchat in prod mode.
+* *static-online-training* contains static files, like: index.html. Would be used to start the webchat in trainer mode.
+* *static-dev* contains static files, like: index.html. Would be used for local development.
 
-## Docker
-Diesem Projekt liegt ein Docker-File und mehrere Docker-Compose-Files bei. Diese stellen das Projekt als Docker-Container zu Verfügung.
-Um das Image zu bauen, muss der folgende Befehl ausgeführt werden:
+Other files or directories are from the main project, for detailed documentation on this code please search on [MrBot-Ai](https://github.com/mrbot-ai/rasa-webchat).
+
+## Deploy and run the project
+
+### locally
+To run this project locally you need to install node.js and npm as a package manager. 
+To install all dependency please execute the following command. 
+This could eventually throw some errors due to some tests that we will not fix.
+```bash
+npm install
+```
+Afterwards you can run the local development server by the command:
+```bash
+npm run dev
+```
+
+### Build
+To deploy and run this project docker is mandatory, you would need to install docker as well as docker stack or docker compose.
+The project would be deployed with docker build. It will be tagged with our registry name and the project name.
 
 ```bash
 docker build -t docker.nexus.gpchatbot.archi-lab.io/chatbot/webchat .
 ```
 
-Um den Service lokal zu starten, muss der folgende Befehl ausgeführt werden:
-```bash
-docker-compose -p gpb -f docker/docker-compose.yaml -f docker/docker-compose.local.yaml up -d
-```
-
-Zum Stoppen muss dieser Befehl ausgeführt werden:
-```bash
-docker-compose -p gpb -f docker/docker-compose.yaml -f docker/docker-compose.local.yaml down
-```
-
-# Original webchat Readme
-
-A simple webchat widget to connect with a chatbot. Forked from [react-chat-widget](https://github.com/Wolox/react-chat-widget)
-## Features
-
-- Plain text message UI
-- Snippet style for links (only as responses for now)
-- Quick Replies
-- Compatible with Messenger Platform API
-
-![demonstration](./assets/chat-demonstration.gif)
-
-## Usage
-
-In your `<body/>`:
-```javascript
-<div id="webchat"/>
-<script src="https://storage.googleapis.com/mrbot-cdn/webchat-latest.js"></script>
-<script>
-    WebChat.default.init({
-        selector: "#webchat",
-        initPayload: "/get_started",
-        interval: 1000, // 1000 ms between each message
-        customData: {"userId": "123"}, // arbitrary custom data. Stay minimal as this will be added to the socket
-        socketUrl: "http://localhost:5500",
-        title: "Title"
-        subtitle: "Subtitle"
-        profileAvatar: "http://to.avat.ar"
-        showCloseButton: true
-        fullScreenMode: false
-</script>
-```
-
-## In your backend.
-
-Your backend should expose a socket with [socket.io](http://socket.io)
-
-### Receiving messages from the chat
-
-```python
-@socketio.on('user_uttered')
-    def handle_message(message):
-        # do something
-```          
-
-### Sending messages from the backend to the chat widget
-
-#### sending plain text
-
-```python
-emit('bot_uttered', {"text": "hello"}, room=socket_id)
-```
-
-#### sending quick replies
-
-```python
-message = {
-  "text": "Happy?",
-  "quick_replies":[
-    {"title":"Yes", "payload":"/affirm"},
-    {"title":"No", "payload":"/deny"}
-  ]}
-emit('bot_uttered', message, room=socket_id)
-```
-
-#### sending a link Snippet
-
-Admittedly a bit far fetched, thinking that Snippets would evolve to carousels
-of generic templates :)
-
-```python
-message = {
-  "attachment":{
-    "type":"template",
-    "payload":{
-      "template_type":"generic",
-      "elements":[
-        {
-          "title":"Title",
-          "buttons":[ {
-            "title":"Link name",
-            "url": "http://link.url"
-          }
-        ]
-      }
-    ]
-  }
-}
-}    
-emit('bot_uttered', message, room=socket_id)
-```
-
-#### sending a Video Message
-
-```python
-message = {
-  "attachment":{
-    "type":"video",
-    "payload":{
-      "title":"Link name",
-      "src": "https://www.youtube.com/watch?v=f3EbDbm8XqY"
-    }
-  }
-}  
-emit('bot_uttered', message, room=socket_id)
-```
-
-#### sending an Image Message
-
-```python
-message = {
-      "attachment":{
-        "type":"image",
-        "payload":{
-          "title":"Link name",
-          "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_IX5FSDQLrwm9qvuXu_g7R9t_-3yBSycZ8OxpRXvMDaTAeBEW"
-        }
-      }
-    }
-emit('bot_uttered', message, room=socket_id)
-```
-#### Using with Rasa
-The chat widget can communicate with any backend, but there is a [Rasa core channel
-available here](https://github.com/mrbot-ai/rasa-addons/)
-
-## Contributors
-[@PHLF](https://github.com/phlf)
-[@znat](https://github.com/znat)
-[@Hub4IT](https://github.com/Hub4IT)
-
-
+### Run
+This project can be started in different modes. The modes differs in configuration and function.
+* *local* local setup for docker, will run the default configuration of the project.
+  ```bash
+    docker-compose -f docker/docker-compose.yaml -f docker/docker-compose.local.yaml up -d
+  ```
+* *prod* production setup, will run the webchat widget for customers.
+  ```bash
+    docker-compose -f docker/docker-compose.yaml -f docker/docker-compose.prod.yaml up -d
+  ```
+* *trainer* trainer setup, will run the online trainer widget to train and build new stories.
+  ```bash
+    docker-compose -f docker/docker-compose.yaml -f docker/docker-compose.trainer.yaml up -d
+  ```
