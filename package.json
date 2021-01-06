@@ -19,7 +19,7 @@
     "javascript"
   ],
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "color": "^3.0.0",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.2",
